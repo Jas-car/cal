@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Calculadora</title>
+  <meta charset="utf-8">
+  <script type="text/javascript">
+
+let input1;
+  let op;
+
+
+const validar = (isCsv) =>{
+if (isCsv) { 
+valores=document.getElementById("pantalla");
+let array=valores.value.split(",");
+  for(let i=0;i<array.length;i++){
+    valor=Number(array[i]);
+  if(isNaN(valor)){
+    document.getElementById("pantalla").value="Error";
+     return false;
+   }else{
+     return true;
+   }
+ }
+}
+else {
+  valor = document.getElementById("pantalla");
+    if( isNaN(Number(valor.value))){
+      document.getElementById("pantalla").value="Error";//Preguntar por inner.html
+      return false;
+    }
+  return true ;
+}  
+}
+ 
+    const vaciar = () => {
+      document.getElementById("pantalla").value = "";
+     cambiarValor();
+    }
+
+    const cuadrado = () => {
+      if(!validar(false)){return};
+      let num = document.getElementById("pantalla");
+
+      num.value = num.value * num.value;
+     cambiarValor();
+    }
+
+
+    const cambiarValor= () =>{
+let valor=document.getElementById("pantalla").value;
+  if(valor===""){
+       document.getElementById("info").innerHTML="";
+    }
+
+  else if(valor<100 ){
+  document.getElementById("info").innerHTML="Info: El resultado es menor que 100";
+}else if(valor>=100  && valor<=200 ){
+   document.getElementById("info").innerHTML="Info: El resultado está entre 100 y 200";
+}else  {
+  document.getElementById("info").innerHTML="Info: El resultado es superior a 200";
+}
+
+ 
+}
+
+const mod= () =>{
+  if(!validar(false)){return};
+let valor=document.getElementById("pantalla");
+ if(valor.value>=0){cambiarValor();}
+ else{valor.value=-1*valor.value;
+cambiarValor();
+ }
+}
+
+const fact = () =>{
+  if(!validar(false)){return};
+let valor=document.getElementById("pantalla");
+if(valor.value<0 ) {
+  valor.value=0;
+}else if(valor.value===1 || valor.value===0){
+  valor.value=1;
+}else{
+   for(let i=valor.value;i>2;i--){
+     valor.value=valor.value*(i-1);
+   }
+}
+cambiarValor();
+}
+
+  const add = () =>{
+  if(!validar(false)){return};
+  let valor=document.getElementById("pantalla");
+  input1=valor.value; 
+  op="+";
+  
+}
+
+const mul = () =>{
+  if(!validar(false)){return};
+  let valor=document.getElementById("pantalla");
+  input1=valor.value;
+  op="*";
+}
+
+const eq= () =>{
+  if(!validar(false)){return};
+  let valor=document.getElementById("pantalla");
+   if(op==="+"){
+   valor.value=(+valor.value) + Number(input1);
+   }else if(op==="*"){
+    valor.value=(+valor.value) * Number(input1);
+   }else{
+     return;
+   }
+   cambiarValor();
+}
+
+const sumatorio = () =>{
+  if(!validar(true)){return};
+  let valores=document.getElementById("pantalla");
+  let array=valores.value.split(",");
+let i=0,n=0;
+while(i<array.length){
+  n=n+(+array[i]);
+  i++;
+}
+valores.value=n;
+}
+
+const compara = (a,b) =>{
+  return a-b;
+}
+const ordenar= () =>{
+  if(!validar(true)){return};
+  let valores=document.getElementById("pantalla");
+  let array=valores.value.split(",");
+  
+  valores.value=array.sort(compara);
+}
+
+const revertir = () =>{
+  if(!validar(true)){return};
+  let valores=document.getElementById("pantalla");
+  let array=valores.value.split(",");
+  valores.value=array.reverse();
+}
+
+const quitar= () =>{
+  if(!validar(true)){return};
+  let valores=document.getElementById("pantalla");
+  let array=valores.value.split(",");
+  valores.value=array.slice(0,-1);
+}
+
+
+
+  </script>
+</head>
+<body>
+  <h1>Calculadora de CORE</h1>
+  Número:
+  <input type="text" id="pantalla" onclick="vaciar()" >
+  <h2 id="info" class="grande" title="Info sobre el número" >Info sobre el número</h2>
+
+<h3>Operaciones unitarias</h3>
+<button id="cuadrado" onclick="cuadrado()">x<sup>2</sup></button>
+<button id="modulo" onclick="mod()">|x|</button>
+<button id="factorial" onclick="fact()">n!</button> 
+<br>
+<h3>Operaciones binarias</h3>
+<button id="multiplicacion" onclick="mul()">*</button>
+<button id="suma" onclick="add()">+</button>
+<button id="igual" onclick="eq()">=</button> 
+<br>
+<h3>Operaciones en formato CSV</h3>
+<button id="sumatorio" onclick="sumatorio()">&sum;x </button>
+<button id="ordenar" onclick="ordenar()">ordenar</button>
+<button id="revertir" onclick="revertir()">revertir</button>
+<button id="quitar" onclick="quitar()">quitar</button>
+ </body>
+</html>
